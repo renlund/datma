@@ -3,9 +3,10 @@
 ##' this function subsets by some condition, but returns all information
 ##'     associated with those values of the meta variable 'meta.var' that would
 ##'     be in the standard subset returned by the same condition.
-##' @param data the data, a data frame or some such thing
+##' @param x the data, a data frame or some such thing
 ##' @param meta.var the meta variable
 ##' @param ... condition for subsetting passed to \code{subset}
+##' @param select vector of variable names to select
 ##' @return a data frame
 ##' @examples
 ##' d <- data.frame(id = rep(LETTERS[1:2], each = 2), z = 1:4)

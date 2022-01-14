@@ -4,6 +4,7 @@
 ##' @param expr the expression for creating variable
 ##' @param dmd the documentation
 ##' @param label a label to assign to the new variable
+##' @param overwrite if name already exists, overwrite?
 ##' @export
 dmd <- function(name, expr, dmd = NULL, label = NULL, overwrite = FALSE){
     .required_properties(name, class = 'character', length = 1)
