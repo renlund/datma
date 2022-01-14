@@ -7,11 +7,13 @@
 subset_subcondition(x, meta.var = NULL, ..., select = NULL)
 }
 \arguments{
+\item{x}{the data, a data frame or some such thing}
+
 \item{meta.var}{the meta variable}
 
 \item{...}{condition for subsetting passed to \code{subset}}
 
-\item{data}{the data, a data frame or some such thing}
+\item{select}{vector of variable names to select}
 }
 \value{
 a data frame

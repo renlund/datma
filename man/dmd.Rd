@@ -14,6 +14,8 @@ dmd(name, expr, dmd = NULL, label = NULL, overwrite = FALSE)
 \item{dmd}{the documentation}
 
 \item{label}{a label to assign to the new variable}
+
+\item{overwrite}{if name already exists, overwrite?}
 }
 \description{
 save documentation on derived variables
