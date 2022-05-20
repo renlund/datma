@@ -54,8 +54,10 @@ cph_it <- function(data, surv, fRHS, cont = NULL, w = NULL,
         ## get spline effects
         pred <- NULL
         for(j in seq_along(cont)){ ## j = 1
-            p <- as.data.frame(do.call(what = rms::Predict,
-                                       args = list('x' = mod, cont[j])))
+            ## p <- as.data.frame(do.call(what = rms::Predict,
+            ##                            args = list('x' = mod, cont[j])))
+            p <- eval(parse(text= paste0("as.data.frame(Predict(mod, ",
+                                         cont[j], "))")))
             attr(p, "out.attrs") <- NULL
             attr(p, "info") <- NULL
             p$outcome <- utf
