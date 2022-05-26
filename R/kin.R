@@ -27,3 +27,7 @@ cluster.by.incl.next <- function(incl.next){
     n <- length(incl.next)
     c(1, 1+cumsum(!incl.next[-n]))
 }
+
+##' @rdname cluster.by
+##' @export
+cbin <- cluster.by.incl.next

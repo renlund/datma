@@ -3,11 +3,14 @@
 \name{cluster.by}
 \alias{cluster.by}
 \alias{cluster.by.incl.next}
+\alias{cbin}
 \title{clustering}
 \usage{
 cluster.by(x, by)
 
 cluster.by.incl.next(incl.next)
+
+cbin(incl.next)
 }
 \arguments{
 \item{x}{variable from which to create cluster}
