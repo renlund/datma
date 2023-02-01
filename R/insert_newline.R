@@ -7,7 +7,7 @@
 ##' @param n a maximum number of characters
 ##' @param linebreak defaults to newline \code{"\n"}
 ##' @param splitby defaults to space \code{" "}
-##' @param max.it maximum number of iteration of a while loop
+##' @param max.it maximum number of iterations of a while loop
 ##' @return character vector
 ##' @examples
 ##'     s <- paste0("En very long and perhaps supercalifragilisticexpialidocious",
@@ -18,9 +18,18 @@
 ##'     cat(insert_linebreak(s, n = 100))
 ##' @export
 insert_linebreak <- function(s, n, linebreak = "\n", splitby = " ", max.it = 10000){
-    properties(x = s, class = "character")
-    properties(x = n, class = "numeric", length = 1)
-    if(n < 1) stop("need n > 0")
+    properties(x = s, class = c("character", "factor"))
+    properties(x = n, class = "numeric", length = 1, na.ok = FALSE)
+    properties(x = linebreak, class = "character", length = 1, na.ok = FALSE)
+    properties(x = splitby, class = "character", length = 1, na.ok = FALSE)
+    properties(x = max.it, class = c("integer", "numeric"), length = 1, na.ok = FALSE)
+    if(n < 1) stop("need n to be at least 1")
+    if("factor" %in% class(x)){
+        r <- factor(x = as.numeric(x),
+                    labels = insert_linebreak(x = levels(x), n = n, code = code,
+                                              splitby = splitby))
+        return(r)
+    }
     ORIGINAL <- s
     R <- rep(NA_character_, length(ORIGINAL))
     for(index in seq_along(s)){ ## index = 1
