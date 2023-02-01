@@ -60,6 +60,6 @@ This creates a list of data management information (defaults to
 }
 \section{Functions}{
 \itemize{
-\item \code{dmv}: An alias for dm ('v' for 'variable')
-}}
+\item \code{dmv()}: An alias for dm ('v' for 'variable')
 
+}}

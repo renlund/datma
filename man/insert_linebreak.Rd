@@ -36,9 +36,9 @@ Given a maximum number of character 'n', insert a linebreak before this number
 }
 \section{Functions}{
 \itemize{
-\item \code{factor_il}: insert linebreak in factor
-}}
+\item \code{factor_il()}: insert linebreak in factor
 
+}}
 \examples{
     s <- paste0("En very long and perhaps supercalifragilisticexpialidocious",
                 " sentence in desparate need of linebreaks")

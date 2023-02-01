@@ -50,11 +50,11 @@ censored times might already be of the 'Surv' class, or where the 'time' and
 }
 \section{Functions}{
 \itemize{
-\item \code{surv_pair2Surv}: transition from separate variables to class 'Surv'
+\item \code{surv_pair2Surv()}: transition from separate variables to class 'Surv'
 
-\item \code{Surv2surv_pair}: transition from class 'Surv' to separate variables
+\item \code{Surv2surv_pair()}: transition from class 'Surv' to separate variables
+
 }}
-
 \examples{
 df <- data.frame(
        persnr = sprintf("id\%s", 1:10),

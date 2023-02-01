@@ -48,7 +48,7 @@ run the same (RHS) formula for multiple outcomes and record models, effect,
 }
 \section{Functions}{
 \itemize{
-\item \code{cph_it_display_code}: example  of code to loop out results  into a rnw document
+\item \code{cph_it_display_code()}: example  of code to loop out results  into a rnw document
 (requires subdirectory 'saved-figure' but this is easily modified)
-}}
 
+}}

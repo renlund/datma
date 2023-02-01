@@ -30,10 +30,10 @@ This functions enables relabeling, reordering and merging of factor levels.
 }
 \section{Functions}{
 \itemize{
-\item \code{dcode}: 'dcode' is an alias for 'recode' since the latter is in
+\item \code{dcode()}: 'dcode' is an alias for 'recode' since the latter is in
 use in some proper R package
-}}
 
+}}
 \examples{
 x <- LETTERS[2:1]
 factor(x) ## levels in alphabetical order

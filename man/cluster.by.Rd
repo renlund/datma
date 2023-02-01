@@ -25,6 +25,6 @@ create cluster variable indicated by other variable
 }
 \section{Functions}{
 \itemize{
-\item \code{cluster.by.incl.next}: cluster by 'include.next' indicator
-}}
+\item \code{cluster.by.incl.next()}: cluster by 'include.next' indicator
 
+}}

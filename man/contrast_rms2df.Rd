@@ -20,7 +20,7 @@ turn a contrast.rms object into a data frame
 }
 \section{Functions}{
 \itemize{
-\item \code{contrast_rms2tidy}: mimick \code{broom::tidy} behaviour  as applied
+\item \code{contrast_rms2tidy()}: mimick \code{broom::tidy} behaviour  as applied
 to a contrast.rms object
-}}
 
+}}

@@ -38,10 +38,10 @@ keeps track of the changing status by setting parameter 'slim' to
 }
 \section{Functions}{
 \itemize{
-\item \code{expire_state}: generalization of expire_status; the 'status' - now
+\item \code{expire_state()}: generalization of expire_status; the 'status' - now
 called 'state' (which must exist in 'x') - can be multivalued
-}}
 
+}}
 \seealso{
 \code{\link{expire_status_by_inventory}}, \code{\link{expire_state_by_inventory}}
 }

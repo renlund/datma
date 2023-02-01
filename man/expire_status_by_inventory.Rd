@@ -52,11 +52,11 @@ inventory, and 0 when it runs out.
 }
 \section{Functions}{
 \itemize{
-\item \code{expire_state_by_inventory}: generalization of
+\item \code{expire_state_by_inventory()}: generalization of
 expire_status_by_inventory; the 'status' - now called 'state' - can be
 multivalued; 'usage' and 'overflow_at' can be variables in 'x'
-}}
 
+}}
 \seealso{
 \code{\link{expire_status}}
 }
