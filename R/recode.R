@@ -26,11 +26,10 @@
 #' @seealso \code{\link{factor}}, \code{\link{relevel}}
 #' @export
 recode <- function(x, L, asFactor = TRUE, newFirst = TRUE){
-   if( !(is.numeric(x) | is.character(x) | is.factor(x) | is.logical(x)) ){
-      stop("[recode] 'x' is neither factor, character, numeric or logical")
-   }
-   if(!is.logical(asFactor)) stop("[recode] 'asFactor' should be logical")
-   if(!is.logical(newFirst)) stop("[recode] 'newFirst' should be logical")
+    properties(x, class = c("factor", "character", "numeric",
+                            "integer", "logical"))
+    properties(asFactor, class = "logical", length = 1, na.ok = FALSE)
+    properties(newFirst, class = "logical", length = 1, na.ok = FALSE)
    char_x <- as.character(x)
    fact_x <- if(is.factor(x)) x else factor(char_x)
    lev <- levels(fact_x)
