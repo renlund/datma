@@ -294,6 +294,7 @@ grepict <- function(pattern, x = NULL, data, id = NULL, date = NULL,
                     units = NULL, units.id = id, begin = NULL,
                     end = NULL, include = c(TRUE, TRUE), ...,
                     long = TRUE, stack = TRUE, verbose = TRUE){
+    .Deprecated(new = "gict")
     properties(verbose, class = "logical", length = 1, nm = "verbose")
     if(verbose) cat("\n [Function dm::grepict set to verbose.]\n",
                     "Checking arguments and preparing data before calling",

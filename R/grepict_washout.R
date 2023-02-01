@@ -7,6 +7,10 @@
 ##' @return a data frame like that returned from \code{grepict}
 ##' @export
 grepict_washout <- function(g, w = NULL, u = "days"){
+    dmess <- paste0("'grepict' is superseeded by 'gict'. There is not yet any ",
+                    "equivalent to grepict_washout, but you can work around ",
+                    "this in gict (no?)")
+    .Deprecated(msg = dmess)
     if(w <= 0){
         message("w should be 1 or more")
         invisible(as.data.frame(NULL))

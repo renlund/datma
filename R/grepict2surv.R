@@ -5,6 +5,7 @@
 ##' @return a data frame
 ##' @export
 grepict2surv <- function(g, prefix = c('time' = 't.', 'event' = 'ev.')){
+    .Deprecated(new = "gict2wide")
     properties(x = prefix, class = 'character',
                length = 2, nm = 'prefix')
     inclusion(x = names(g), nm = "g",
