@@ -8,6 +8,7 @@ License: GPL-2
 URL: https://github.com/renlund/datma
 BugReports: https://github.com/renlund/datma/issues
 VignetteBuilder: knitr
+Imports: data.table
 Suggests:
     Hmisc,
     survival,
