@@ -18,8 +18,8 @@
 ##'     cat(insert_linebreak(s, n = 100))
 ##' @export
 insert_linebreak <- function(s, n, linebreak = "\n", splitby = " ", max.it = 10000){
-    .required_properties(x = s, class = "character")
-    .required_properties(x = n, class = "numeric", length = 1)
+    properties(x = s, class = "character")
+    properties(x = n, class = "numeric", length = 1)
     if(n < 1) stop("need n > 0")
     ORIGINAL <- s
     R <- rep(NA_character_, length(ORIGINAL))

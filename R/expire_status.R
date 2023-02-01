@@ -21,14 +21,14 @@
 ##' @export
 expire_status <- function(x, expire = NULL, slim = FALSE){
     ## check arguments and assign expire to x if given separately
-    .required_data_names(data.names = names(x),
-                         required = c("id", "t"))
-    .required_properties(x = slim, class = "logical", length = 1, nm = "slim")
+    inclusion(x = names(x), nm = "x",
+              include = c("id", "t"))
+    properties(x = slim, class = "logical", length = 1, nm = "slim")
     if(is.null(expire)){
-            .required_data_names(data.names = names(x),
-                                 required = c("expire"))
+            inclusion(x = names(x), nm = "x",
+                      include = c("expire"))
     } else {
-        .required_properties(x = expire, class = "numeric",
+        properties(x = expire, class = "numeric",
                              length = c(1, nrow(x)), nm = "expire")
         x$expire <- expire
     }
@@ -94,18 +94,18 @@ if(FALSE){ ## MANUAL TEST OF expire_status
 ##' @export
 expire_state <- function(x, expire = NULL, null.state = "", slim = FALSE){
     ## check arguments and assign expire to x if given separately
-    .required_data_names(data.names = names(x),
-                         required = c("id", "t", "state"))
-    .required_properties(x = slim, class = "logical", length = 1, nm = "slim")
-    .required_properties(x = null.state, class = c("character", "numeric"),
+    inclusion(x = names(x), nm = "x",
+              include = c("id", "t", "state"))
+    properties(x = slim, class = "logical", length = 1, nm = "slim")
+    properties(x = null.state, class = c("character", "numeric"),
                          length = 1, nm = "null.state")
-    .required_properties(x = x$state, class = c("character", "numeric"),
+    properties(x = x$state, class = c("character", "numeric"),
                          nm = "x$state")
     if(is.null(expire)){
-            .required_data_names(data.names = names(x),
-                                 required = c("expire"))
+            inclusion(x = names(x), nm = "x",
+                      include = c("expire"))
     } else {
-        .required_properties(x = expire, class = "numeric",
+        properties(x = expire, class = "numeric",
                              length = c(1, nrow(x)), nm = "expire")
         x$expire <- expire
     }

@@ -31,12 +31,12 @@
 ##' @export
 match_weight <- function(tr, cl, id, data = NULL, trv = 1){
     if(!is.null(data)){
-        .required_properties(data, class = "data.frame")
-        .required_properties(tr, class = "character", length = 1)
-        .required_properties(cl, class = "character", length = 1)
-        .required_properties(id, class = "character", length = 1)
+        properties(data, class = "data.frame")
+        properties(tr, class = "character", length = 1)
+        properties(cl, class = "character", length = 1)
+        properties(id, class = "character", length = 1)
         nm <- c(id, tr, cl)
-        .required_data_names(names(data), nm)
+        inclusion(x = names(data), nm = "data", include = nm)
         DATA <- subset(data, select = nm)
         names(DATA) <- c("id", "tr", "cl")
     } else {

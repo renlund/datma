@@ -5,10 +5,10 @@
 ##' @return a data frame
 ##' @export
 grepict2surv <- function(g, prefix = c('time' = 't.', 'event' = 'ev.')){
-    .required_properties(x = prefix, class = 'character',
-                         length = 2, nm = 'prefix')
-    .required_data_names(data.names = names(g),
-                         required = c('id', 'begin', 'time', 'event', 'first.id'))
+    properties(x = prefix, class = 'character',
+               length = 2, nm = 'prefix')
+    inclusion(x = names(g), nm = "g",
+              include = c('id', 'begin', 'time', 'event', 'first.id'))
     G <- subset(g, g$first.id == 1)
     AL <- unique(G$alias)
     R <- NULL

@@ -9,7 +9,7 @@ cluster.by <- function(x, by){
         warning("'x' is too little (NULL or length 0)")
         return(invisible(NULL))
     }
-    .required_properties(by, class = "character", length = 1)
+    properties(by, class = "character", length = 1)
     if(by == "incl.next"){
         cluster.by.incl.next(incl.next = x)
     } else {

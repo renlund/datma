@@ -62,28 +62,28 @@ expire_status_by_inventory <- function(x, inventory = NULL,
                              usage = 1,
                              overflow_at = Inf,
                              slim = FALSE){
-    .required_data_names(data.names = names(x),
-                         required = c("id", "t"))
-    .required_properties(x = slim,
-                         class = "logical",
-                         length = 1,
-                         nm = "slim")
-    .required_properties(x = usage,
-                         class = c("numeric", "integer"),
-                         length = 1,
-                         nm = "usage")
-    .required_properties(x = overflow_at,
-                         class = c("numeric", "integer"),
-                         length = 1,
-                         nm = "overflow_at")
+    inclusion(x = names(x), nm = "x",
+              include = c("id", "t"))
+    properties(x = slim,
+               class = "logical",
+               length = 1,
+               nm = "slim")
+    properties(x = usage,
+               class = c("numeric", "integer"),
+               length = 1,
+               nm = "usage")
+    properties(x = overflow_at,
+               class = c("numeric", "integer"),
+               length = 1,
+               nm = "overflow_at")
     if(is.null(inventory)){
-        .required_data_names(data.names = names(x),
-                             required = c("inventory"))
+        inclusion(x = names(x), nm = "x",
+                  include = c("inventory"))
     } else {
-        .required_properties(x = inventory,
-                             class = "numeric",
-                             length = c(1, nrow(x)),
-                             nm = "inventory")
+        properties(x = inventory,
+                   class = "numeric",
+                   length = c(1, nrow(x)),
+                   nm = "inventory")
         x$inventory <- inventory
     }
     if(any(x$inventory <= 0)){
@@ -177,25 +177,25 @@ expire_state_by_inventory <- function(x, inventory = NULL,
                                       overflow_at = NULL,
                                       null.state = "",
                                       slim = FALSE){
-    .required_data_names(data.names = names(x),
-                         required = c("id", "t", "state"))
-    .required_properties(x = null.state,
-                         class = c("character", "numeric"),
-                         length = 1,
-                         nm = "null.state")
-    .required_properties(x = slim,
-                         class = "logical",
-                         length = 1,
-                         nm = "slim")
+    inclusion(x = names(x), nm = "x",
+              include = c("id", "t", "state"))
+    properties(x = null.state,
+               class = c("character", "numeric"),
+               length = 1,
+               nm = "null.state")
+    properties(x = slim,
+               class = "logical",
+               length = 1,
+               nm = "slim")
     ## control usage
     if(is.null(usage)){
-        .required_data_names(data.names = names(x),
-                             required = c("usage"))
+        inclusion(x = names(x), nm = "x",
+                  include = c("usage"))
     } else {
-        .required_properties(x = usage,
-                             class = "numeric",
-                             length = c(1, nrow(x)),
-                             nm = "usage")
+        properties(x = usage,
+                   class = "numeric",
+                   length = c(1, nrow(x)),
+                   nm = "usage")
         x$usage <- usage
     }
     if(any(x$usage <= 0)){
@@ -203,13 +203,13 @@ expire_state_by_inventory <- function(x, inventory = NULL,
     }
     ## control overflow_at
     if(is.null(overflow_at)){
-        .required_data_names(data.names = names(x),
-                             required = c("overflow_at"))
+        inclusion(x = names(x), nm = "x",
+                  include = c("overflow_at"))
     } else {
-        .required_properties(x = overflow_at,
-                             class = "numeric",
-                             length = c(1, nrow(x)),
-                             nm = "overflow_at")
+        properties(x = overflow_at,
+                   class = "numeric",
+                   length = c(1, nrow(x)),
+                   nm = "overflow_at")
         x$overflow_at <- overflow_at
     }
     if(any(x$overflow_at <= 0)){
@@ -217,13 +217,13 @@ expire_state_by_inventory <- function(x, inventory = NULL,
     }
     ## control inventory
     if(is.null(inventory)){
-        .required_data_names(data.names = names(x),
-                             required = c("inventory"))
+        inclusion(x = names(x), nm = "x",
+                  include = c("inventory"))
     } else {
-        .required_properties(x = inventory,
-                             class = "numeric",
-                             length = c(1, nrow(x)),
-                             nm = "inventory")
+        properties(x = inventory,
+                   class = "numeric",
+                   length = c(1, nrow(x)),
+                   nm = "inventory")
         x$inventory <- inventory
     }
     if(any(x$inventory <= 0)){

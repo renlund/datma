@@ -17,9 +17,9 @@
 ##' subset_subcondition(d, meta.var = "id", z == 4)
 ##' @export
 subset_subcondition <- function(x, meta.var = NULL, ... , select = NULL){
-    .required_properties(x = x, class = "data.frame")
-    .required_properties(x = meta.var, class = "character", length = 1)
-    .required_properties(x = select, class = c("NULL", "character"))
+    properties(x = x, class = "data.frame")
+    properties(x = meta.var, class = "character", length = 1)
+    properties(x = select, class = c("NULL", "character"))
     if(is.null(select)) select <- names(x)
     set <- subset(x = x, ..., select = meta.var, drop = TRUE)
     x[x[[meta.var]] %in% set, select, drop = FALSE]

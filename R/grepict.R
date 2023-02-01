@@ -26,26 +26,26 @@
 grepict_rigid <- function(pattern, x = NULL, data, ..., include = c(TRUE, TRUE),
                              long = TRUE, verbose = TRUE, paste.alias = TRUE){
     ## -- sanity checks
-    .required_properties(x = verbose, class = "logical", length = 1)
+    properties(x = verbose, class = "logical", length = 1)
     if(verbose) cat("\n [Function dm::grepict_rigid is verbose]\n Checking arguments and data\n")
-    .required_properties(x = include, class = "logical", length = 2)
-    .required_properties(x = long, class = "logical", length = 1)
-    .required_properties(x = paste.alias, class = "logical", length = 1)
-    .required_properties(x = pattern, class = "character", length = 1)
-    .required_properties(x = data, class = "data.frame")
-    .required_properties(x = x, class = c("character", "NULL"))
+    properties(x = include, class = "logical", length = 2)
+    properties(x = long, class = "logical", length = 1)
+    properties(x = paste.alias, class = "logical", length = 1)
+    properties(x = pattern, class = "character", length = 1)
+    properties(x = data, class = "data.frame")
+    properties(x = x, class = c("character", "NULL"))
     used_data_names <-  c("id", "begin", "end", "date")
     internal_names <- c("event", "time",
                         "match", "match.in",
                         "pattern", "alias",
                         "first.id", "first.id_date")
     ## -- require that 'id', 'date' and all x variables are in the data set
-    .required_data_names(data.names = names(data),
-                         required = c("id", "date", x))
+    inclusion(x = names(data), nm = "data",
+              include = c("id", "date", x))
     ## -- if x = NULL, search in all variables (except used_data_names)
     if(is.null(x)) x <- setdiff(names(data), used_data_names)
     ## -- do not allow the name of search variables to coincide with used_data_names
-    .not_allowed_names(nm = x, no = used_data_names)
+    avoidance(x = x, avoid = used_data_names)
     ## -- rename if they coincide with internal names
     x.new <- .rename_if_in(nm = x, compare = internal_names, prefix = '.',
                            suffix = NULL, all = FALSE, limit = 10, verbose = verbose)
@@ -294,12 +294,12 @@ grepict <- function(pattern, x = NULL, data, id = NULL, date = NULL,
                     units = NULL, units.id = id, begin = NULL,
                     end = NULL, include = c(TRUE, TRUE), ...,
                     long = TRUE, stack = TRUE, verbose = TRUE){
-    .required_properties(verbose, class = "logical", length = 1, nm = "verbose")
+    properties(verbose, class = "logical", length = 1, nm = "verbose")
     if(verbose) cat("\n [Function dm::grepict set to verbose.]\n",
                     "Checking arguments and preparing data before calling",
                     "grepict_rigid\n")
-    .required_data_names(data.names = names(data),
-                         required = c(id, date, x))
+    inclusion(x = names(data), nm = "data",
+              include = c(id, date, x))
     ## ------------------- EXPERIMENTAL START ---------------------------------
     ## problem discovered 2021-01-15: if 'begin' and 'end' exist in data and the
     ## call is made with begin = NULL, end = 'begin' or vice versa (which is
@@ -339,23 +339,23 @@ grepict <- function(pattern, x = NULL, data, id = NULL, date = NULL,
                   }
     if(is.null(begin)) begin <- data.begin
     if(is.null(end))   end   <- data.end
-    .required_properties(x = include, class = "logical", length = 2)
-    .required_properties(pattern, class = "character")
-    .required_properties(x, class = c("character", "NULL"))
-    .required_properties(data, class = "data.frame")
-    .required_properties(id, class = "character", length = 1)
-    .required_properties(date, class = "character", length = 1)
-    .required_properties(units.id, class = "character")
-    .required_properties(begin, class = c("Date", "character"), length = 1)
+    properties(x = include, class = "logical", length = 2)
+    properties(pattern, class = "character")
+    properties(x, class = c("character", "NULL"))
+    properties(data, class = "data.frame")
+    properties(id, class = "character", length = 1)
+    properties(date, class = "character", length = 1)
+    properties(units.id, class = "character")
+    properties(begin, class = c("Date", "character"), length = 1)
     if(is.character(begin)){
-        .required_data_names(data.names = names(units), required = begin)
+        inclusion(x = names(units), nm = "units", include = begin)
     }
-    .required_properties(end,   class = c("Date", "character"), length = 1)
+    properties(end,   class = c("Date", "character"), length = 1)
     if(is.character(end)){
-        .required_data_names(data.names = names(units), required = end)
+        inclusion(x = names(units), nm = "units", include = end)
     }
-    .required_properties(long, class = "logical", length = 1)
-    .required_properties(stack, class = "logical", length = 1)
+    properties(long, class = "logical", length = 1)
+    properties(stack, class = "logical", length = 1)
     if(long){
         if(!stack) warning("long format must be stacked")
         stack <- TRUE

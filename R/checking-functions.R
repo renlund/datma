@@ -1,3 +1,5 @@
+## these functions will be replaced by the standardized version in rqr-functions.r
+
 .required_properties <- function(x, class = NULL, length = NULL, nm = NULL){
     if(is.null(nm)) nm <- as.character(substitute(x))
     if(!is.null(class)){

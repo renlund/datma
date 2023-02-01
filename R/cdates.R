@@ -15,13 +15,13 @@ cdate <- function(x, sep = NULL, low.bound = NULL, verbose = TRUE,
                   bound4all = FALSE, ignore.na = TRUE){
     ## check arguments
     if(Lnull <- is.null(low.bound)) bound4all <- FALSE
-    .required_properties(x, class = c('character', 'numeric'))
-    .required_properties(sep, class = c('character', 'NULL'), length = 0:1)
-    .required_properties(bound4all, class = 'logical', length = 1)
-    .required_properties(ignore.na, class = 'logical', length = 1)
+    properties(x, class = c('character', 'numeric'))
+    properties(sep, class = c('character', 'NULL'), length = 0:1, na.ok = FALSE)
+    properties(bound4all, class = 'logical', length = 1, na.ok = FALSE)
+    properties(ignore.na, class = 'logical', length = 1, na.ok = FALSE)
     n <- length(x)
-    if(n == 0) as.Date(character(0))
-    .required_properties(low.bound, class = c('Date', 'NULL'), length = c(0, n))
+    if(n == 0) return(as.Date(character(0)))
+    properties(low.bound, class = c('Date', 'NULL'), length = c(0, n))
     ## make dates directly, for those possible
     dform <- paste0("%Y", sep, "%m", sep, "%d")
     dd <- as.Date(x, format = dform)
@@ -83,10 +83,10 @@ fix.single.cdate <- function(x, sep = NULL,
                              low.bound = NULL, bound4all = FALSE,
                              ignore.na = TRUE){
     if(is.null(low.bound) || is.na(low.bound)) low.bound <- NULL ## might be called with NA
-    .required_properties(x, class = c('character', 'numeric'), length = 1)
-    .required_properties(low.bound, class = c("Date", "NULL"), length = c(0,1))
-    .required_properties(ignore.na, class = 'logical', length = 1)
-    .required_properties(sep, class = c('character', 'NULL'), length = 0:1)
+    properties(x, class = c('character', 'numeric'), length = 1)
+    properties(low.bound, class = c("Date", "NULL"), length = c(0,1))
+    properties(ignore.na, class = 'logical', length = 1)
+    properties(sep, class = c('character', 'NULL'), length = 0:1)
     if(is.na(x)){
         if(ignore.na) return(as.Date(NA)) else stop("x is missing")
     }
@@ -227,7 +227,7 @@ if(FALSE){
 ## - #' helpers for cdate
 ## fix.single.cdate <- function(x, sep = NULL, low.bound = NULL,
 ##                              ok.years = NULL, ignore.na = TRUE){
-##     .required_properties(x, length = 1)
+##     properties(x, length = 1)
 ##     ## if(length(x) != 1) stop("want length 1 vector 'x'")
 ##     if(!is.null(low.bound)) if(!class(low.bound) %in% 'Date'){
 ##                                 stop("low.bound should be a Date")

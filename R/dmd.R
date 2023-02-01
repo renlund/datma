@@ -7,8 +7,8 @@
 ##' @param overwrite if name already exists, overwrite?
 ##' @export
 dmd <- function(name, expr, dmd = NULL, label = NULL, overwrite = FALSE){
-    .required_properties(name, class = 'character', length = 1)
-    .required_properties(dmd, class = c('character', 'NULL'), length = 0:1)
+    properties(name, class = 'character', length = 1)
+    properties(dmd, class = c('character', 'NULL'), length = 0:1)
     v <- list(
         'dmd' = if(is.null(dmd)) '' else dmd,
         'label' = if(is.null(label)) '' else label,
