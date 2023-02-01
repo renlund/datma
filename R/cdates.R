@@ -1,3 +1,98 @@
+##' @title check censored dates
+##' @description check censored dates of the type '20110000' or '20110200'.
+##' @param x dates, possibly censored, as character or numeric (e.g. 20070101)
+##' @param low.bound the lower bound
+##' @param id id variable, must be unique for each x. If NULL 1:n is used
+##' @export
+cdate_checker <- function(x, low.bound, id = NULL){
+    properties(x, class = "character")
+    n <- length(x)
+    properties(low.bound, class = "Date", length = c(1,n), na.ok = FALSE)
+    if(length(low.bound) == 1) low.bound <- rep(low.bound, n)
+    properties(id, length = c(0,n), na.ok = FALSE)
+    if(length(id) == 0) id <- 1:n
+    if(length(unique(id)) != n){
+        warning("id is not unique, replaced by 1:n")
+        id< - 1:n
+    }
+    y <- as.integer(substr(x, 1, 4))
+    m <- as.integer(substr(x, 5, 6))
+    ## d <- as.integer(substr(x, 7, 8))
+    z <- rep(FALSE, n)
+    ## handle empty input
+    empty <- is.na(x) | grepl("^ *$", x)
+    d.empty <- data.frame(input = "empty",
+                          id = id[empty],
+                          x = x[empty],
+                          date = as.Date(NA_character_),
+                          low.bound = low.bound[empty],
+                          fail = 0L)
+    ## handle censored input: must deal differently with YYYYMM00 versus YYYY0000
+    cens <- grepl("00$", x)
+    cens4 <- grepl("0000$", x)
+    cens4.i <- z
+    cens4.i[cens4] <- as.Date(paste0(y[cens4], "-12-31")) < low.bound[cens4]
+    cens2 <- cens & !cens4
+    cens2.i <- z
+    cens2.i[cens2] <- as.Date(paste0(y[cens2], "-",
+                                     m[cens2], "-",
+                                     apply(cbind(y[cens2], m[cens2]),
+                                           MARGIN = 1,
+                                           FUN = function(z) mdays(z[1], z[2])))) <
+        low.bound[cens2]
+    d.cens <- data.frame(input = "censored",
+                         id = id[cens],
+                         x = x[cens],
+                         date = as.Date(NA_character_),
+                         low.bound = low.bound[cens],
+                         fail = as.integer(cens2.i | cens4.i)[cens])
+    ## handle those that can be dates:
+    xdate <- as.Date(x, format = "%Y%m%d")
+    date <- !is.na(xdate)
+    date.i <- z
+    date.i[date] <- xdate[date] < low.bound[date]
+    d.date <- data.frame(input = "ok",
+                         id = id[date],
+                         x = x[date],
+                         date = xdate[date],
+                         low.bound = low.bound[date],
+                         fail = as.integer(date.i[date]))
+    ## now only weird dates remain
+    weird <- !date & !empty & !cens
+    d.weird <- data.frame(input = "weird",
+                          id = id[weird],
+                          x = x[weird],
+                          date = as.Date(NA_character_),
+                          low.bound = low.bound[weird],
+                          fail = 1L)
+    s <- paste0("Input of length ", n, "\n",
+                " * ok      : ", nrow(d.date),
+                " (", sum(d.date$fail), " with bound error)\n",
+                " * censored: ", nrow(d.cens),
+                " (", sum(d.cens$fail), " with bound error)\n",
+                " * empty   : ", nrow(d.empty), "\n",
+                " * weird   : ", nrow(d.weird), "\n",
+                "The subset of the returned data.frame where fail == 1",
+                " needs further examination (bound error or weird input).")
+    message(s)
+    rbind(d.date, d.cens, d.empty, d.weird)
+}
+
+if(FALSE){
+
+    x <- c("20200112", "20160505", "20060000",
+           NA, "20100100", "",
+           "20081000", "20211201", "20071312")
+    lb <- as.Date(
+        c("2020-01-15", "2016-03-31", "2007-05-04",
+          "2000-01-01","2010-12-11", "2000-01-01",
+          "2008-09-12", "2019-07-21","2007-12-13")
+    )
+    cdate_checker(x, lb)
+
+}
+
+
 ##' @title fix censored dates
 ##' @description fix censored dates of the type '20110000' or '20110200' by
 ##'     selecting the midpoint of the censored time interval. If a lower bound
