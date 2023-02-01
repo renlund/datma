@@ -10,7 +10,7 @@
 ##' @param max.it maximum number of iterations of a while loop
 ##' @return character vector
 ##' @examples
-##'     s <- paste0("En very long and perhaps supercalifragilisticexpialidocious",
+##'     s <- paste0("A very long and perhaps supercalifragilisticexpialidocious",
 ##'                 " sentence in desparate need of linebreaks")
 ##'     cat(insert_linebreak(s, n = 20))
 ##'     cat(insert_linebreak(s, n = 30))
@@ -26,8 +26,10 @@ insert_linebreak <- function(s, n, linebreak = "\n", splitby = " ", max.it = 100
     if(n < 1) stop("need n to be at least 1")
     if("factor" %in% class(x)){
         r <- factor(x = as.numeric(x),
-                    labels = insert_linebreak(x = levels(x), n = n, code = code,
-                                              splitby = splitby))
+                    labels = insert_linebreak(
+                        s = levels(x), n = n, linebreak = linebreak,
+                        splitby = splitby
+                    ))
         return(r)
     }
     ORIGINAL <- s

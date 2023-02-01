@@ -18,7 +18,7 @@ factor_il(x, ...)
 
 \item{splitby}{defaults to space \code{" "}}
 
-\item{max.it}{maximum number of iteration of a while loop}
+\item{max.it}{maximum number of iterations of a while loop}
 
 \item{x}{something interpretable as factor}
 
@@ -40,7 +40,7 @@ Given a maximum number of character 'n', insert a linebreak before this number
 
 }}
 \examples{
-    s <- paste0("En very long and perhaps supercalifragilisticexpialidocious",
+    s <- paste0("A very long and perhaps supercalifragilisticexpialidocious",
                 " sentence in desparate need of linebreaks")
     cat(insert_linebreak(s, n = 20))
     cat(insert_linebreak(s, n = 30))
