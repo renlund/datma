@@ -24,10 +24,10 @@ insert_linebreak <- function(s, n, linebreak = "\n", splitby = " ", max.it = 100
     properties(x = splitby, class = "character", length = 1, na.ok = FALSE)
     properties(x = max.it, class = c("integer", "numeric"), length = 1, na.ok = FALSE)
     if(n < 1) stop("need n to be at least 1")
-    if("factor" %in% class(x)){
-        r <- factor(x = as.numeric(x),
+    if("factor" %in% class(s)){
+        r <- factor(x = as.numeric(s),
                     labels = insert_linebreak(
-                        s = levels(x), n = n, linebreak = linebreak,
+                        s = levels(s), n = n, linebreak = linebreak,
                         splitby = splitby
                     ))
         return(r)
@@ -75,7 +75,7 @@ if(FALSE){
     insert_linebreak(s, n = 12)
 }
 
-##' @describeIn insert_linebreak insert linebreak in factor
+##' @describeIn insert_linebreak insert linebreak in factor (obsolete)
 ##' @param x something interpretable as factor
 ##' @param ... passed to \code{insert_linebreak}
 ##' @export
