@@ -40,6 +40,7 @@ survfit_it <- function(surv, data,
                        vs_age = FALSE, age_var = NULL, age_bound = NULL,
                        progress = FALSE,
                        stringsAsFactors = TRUE){
+    .Deprecated(new = "survivalist::survfit_galore")
     N <- nrow(data)
     if(is.null(w)) w <- rep(1, N)
     if(is.character(w)) w <- data[[w]]

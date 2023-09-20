@@ -20,6 +20,7 @@
 ##' @return a data frame
 ##' @export
 expire_status <- function(x, expire = NULL, slim = FALSE){
+    .Deprecated(new = "survivalist::fixed_treatment")
     ## check arguments and assign expire to x if given separately
     inclusion(x = names(x), nm = "x",
               include = c("id", "t"))
@@ -93,6 +94,7 @@ if(FALSE){ ## MANUAL TEST OF expire_status
 ##' @param null.state value assigned to expired state
 ##' @export
 expire_state <- function(x, expire = NULL, null.state = "", slim = FALSE){
+    .Deprecated(new = "survivalist::fixed_treatment")
     ## check arguments and assign expire to x if given separately
     inclusion(x = names(x), nm = "x",
               include = c("id", "t", "state"))

@@ -62,6 +62,7 @@ expire_status_by_inventory <- function(x, inventory = NULL,
                              usage = 1,
                              overflow_at = Inf,
                              slim = FALSE){
+    .Deprecated(new = "survivalist::pill_treatment")
     inclusion(x = names(x), nm = "x",
               include = c("id", "t"))
     properties(x = slim,
@@ -97,6 +98,7 @@ expire_status_by_inventory <- function(x, inventory = NULL,
     OX <- x[order.x, c("id", "t", "inventory")]
     s <- split(OX, f = OX$id)
     ## X = s[[1]]; reduce = slim
+
     foo <- function(X, reduce = slim){
         X <- X[!duplicated(X$t),]
         n.X <- nrow(X)
@@ -108,17 +110,17 @@ expire_status_by_inventory <- function(x, inventory = NULL,
         vv[times_index] <- X$inventory - usage
         c_vv <- cumsum_bounded(vv, low = 0, high = overflow_at)
         zeros_index <- which(c(FALSE, c_vv[1:(n-1)] > 0 &
-                                             c_vv[2:n] == 0)) + 1 ## XK added +1
-        keep_index <- sort(unique(c(times_index, zeros_index)))
+                                      c_vv[2:n] == 0)) + 1 ## XK added +1
+        zeros_index2 <- ifelse(c_vv[times_index] == 0,
+                               yes = times_index + 1,
+                               no = NA_integer_)
+        keep_index <- sort(unique(c(times_index, zeros_index,
+                                    na.omit(zeros_index2))))
         Z <- data.frame(id = X$id[1], t = tt,
-                        ## inventory = c_vv + usage,
                         remains = c_vv)[keep_index, ]
-        Z$status <- ifelse(Z$remains > 0, 1, 0)
-        ## Z$remains <- NULL
-        ## tmp <- data.frame(id = X$id[1], t = tt, remains = c_vv)[keep_index, ]
-        ## Z <- merge(X, tmp, all = TRUE)
         ## Z$status <- ifelse(Z$remains > 0, 1, 0)
-        ## Z$remains <- NULL
+        Z$status <- ifelse(Z$t %in% X$t, 1L, 0L)
+
         order.Z <- order(Z$t)
         if(reduce){
             U <- Z[order.Z, c("id", "t", "status")]
@@ -165,6 +167,29 @@ if(FALSE){
     (M <- merge(EI1, EI2, all.x = TRUE))
     EI$org_data = 1
     merge(M, EI, all.x = T)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0, 1, 2),
+        inventory = 1
+    )
+    expire_status_by_inventory(x)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0),
+        inventory = 1
+    )
+    expire_status_by_inventory(x)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0, 10),
+        inventory = 1
+    )
+    expire_status_by_inventory(x)
+
+
 }
 
 ##' @describeIn expire_status_by_inventory generalization of
@@ -177,6 +202,7 @@ expire_state_by_inventory <- function(x, inventory = NULL,
                                       overflow_at = NULL,
                                       null.state = "",
                                       slim = FALSE){
+    .Deprecated(new = "survivalist::pill_treatment")
     inclusion(x = names(x), nm = "x",
               include = c("id", "t", "state"))
     properties(x = null.state,
@@ -259,12 +285,16 @@ expire_state_by_inventory <- function(x, inventory = NULL,
                               }), use.names = FALSE)
         zeros_index <- which(c(FALSE, c_vv[1:(n-1)] > 0 &
                                              c_vv[2:n] == 0)) + 1 ## XK added +1
-        keep_index <- sort(unique(c(times_index, zeros_index)))
-        Z <- data.frame(id = X$id[1], t = tt, state = ss, remains = c_vv)[keep_index, ]
-        Z$state <- ifelse(Z$remains == 0, null.state, Z$state)
-        ## Z <- merge(X, tmp, all = TRUE)
-        ## Z$status <- ifelse(Z$remains > 0, 1, )
-        ## Z$remains <- NULL
+        zeros_index2 <- ifelse(c_vv[times_index] == 0,
+                               yes = times_index + 1,
+                               no = NA_integer_)
+        keep_index <- sort(unique(c(times_index, zeros_index,
+                                    na.omit(zeros_index2))))
+        Z <- data.frame(id = X$id[1], t = tt,
+                        state = ss, remains = c_vv)[keep_index, ]
+        ## Z$state <- ifelse(Z$remains == 0, null.state, Z$state)
+        Z$state <- ifelse(Z$t %in% X$t, Z$state, null.state)
+
         order.Z <- order(Z$t)
         if(reduce){
             U <- Z[order.Z, c("id", "t", "state")]
@@ -292,5 +322,31 @@ if(FALSE){ ## MANUAL TEST of expire_state_by_inventory
     )
     expire_state_by_inventory(x, slim = FALSE)
     expire_state_by_inventory(x, slim = TRUE)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0),
+        state = 1,
+        inventory = 1
+    )
+    expire_state_by_inventory(x, usage = 1, null.state = 0, overflow_at = Inf)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0, 10),
+        state = 1,
+        inventory = 1
+    )
+    expire_state_by_inventory(x, usage = 1, null.state = 0, overflow_at = Inf)
+
+    x <- data.frame(
+        id = 1,
+        t = c(0, 1, 2),
+        state = 1,
+        inventory = 1
+    )
+    expire_state_by_inventory(x, usage = 1, null.state = 0, overflow_at = Inf)
+
+
 
 }

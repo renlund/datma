@@ -11,6 +11,7 @@
 #' @seealso \code{\link{grep}}, \code{\link{grepl}}
 #' @export
 grepr <- function(pattern, x, index=FALSE, ...) {
+    .Deprecated(msg = "use value=TRUE in grep instead of 'grepr'")
     g <- grep(pattern, x, ...)
     m <- x[g]
     if(index) names(m) <- g

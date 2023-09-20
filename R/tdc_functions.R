@@ -12,6 +12,7 @@
 ##' @return data frame with variables 'time' and 'in.study' (count)
 ##' @export
 tdc_in_study <- function(x, tstart = "tstart", tstop = "tstop"){
+    .Deprecated(new = "survivalist::tdc_count")
     ts <- sort(unique(c(x[[tstart]], x[[tstop]])))
     ts <- ts[-length(ts)]
     foo <- function(t){
@@ -40,6 +41,7 @@ tdc_in_study <- function(x, tstart = "tstart", tstop = "tstop"){
 ##' @export
 tdc_stat <- function(x, var, stat, stat.names = NULL,
                      tstart = "tstart", tstop = "tstop"){
+    .Deprecated(new = "survivalist::tdc_statistic")
     x <- x[, c(tstart, tstop, var)]
     ts <- sort(unique(c(x[[tstart]], x[[tstop]])))
     ts <- ts[-length(ts)]
