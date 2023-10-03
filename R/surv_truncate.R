@@ -8,6 +8,7 @@
 ##'     frame with variables \code{time} and \code{event}.
 ##' @export
 surv_truncate <- function(x, ttime = NULL, surv.output = TRUE){
+    .Deprecated("survivalist::truncate_surv")
     if(is.null(ttime)) stop("ttime must be given")
     if(class(x) != "Surv") stop("x not of class 'Surv'")
     t <- x[,1]

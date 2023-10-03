@@ -16,6 +16,7 @@
 ##'     frame with variables \code{time} and \code{event}.
 ##' @export
 surv_combiner <- function(..., comb.type = 'EELC', surv.output = TRUE){
+    .Deprecated("survivalist::combine_surv")
     if(!comb.type %in% c('EELC', 'earliest')){
         s <- paste0("'comb.type' must be one of\n",
                " - 'EELC' (Early Events, Late Censored) which chooses the ",

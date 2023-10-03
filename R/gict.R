@@ -53,9 +53,10 @@ gict <- function(pattern, x, data, id, date,
                  include = c(TRUE, TRUE), ...,
                  data.keep = NULL, verbose = TRUE){
     ## CHECK ARGUMENTS ---------------------------------------------------------
+    .Deprecated("survivalist::itc_grep")
     properties(x = verbose, class = "logical", length = 1, na.ok = FALSE)
     V <- verbose
-    if(V) message("[kneadr::gict is verbose] Checking arguments")
+    if(V) message("[gict is verbose] Checking arguments")
     properties(x = pattern, class = "character", na.ok =FALSE)
     properties(x = names(pattern), nm = "names of 'pattern'",
                class = c("NULL", "character"), na.ok =FALSE)
@@ -198,6 +199,7 @@ dt.active <- function() "data.table" %in% .packages()
 ##'     'event' associated with \code{first.id == 1}
 ##' @export
 gict2wide <- function(x, event.only = FALSE){
+    .Deprecated("survivalist::itc_grep")
     properties(x, class = "data.frame")
     properties(event.only, class = "logical", length = 1, na.ok = FALSE)
     inclusion(names(x), nm = "x",
