@@ -108,6 +108,7 @@ if(FALSE){
 ##' @export
 cdate <- function(x, sep = NULL, low.bound = NULL, verbose = TRUE,
                   bound4all = FALSE, ignore.na = TRUE){
+    .Deprecated("survivalist::impute00date")
     ## check arguments
     if(Lnull <- is.null(low.bound)) bound4all <- FALSE
     properties(x, class = c('character', 'numeric'))
